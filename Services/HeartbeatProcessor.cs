@@ -1,3 +1,5 @@
+using Assignement.Events;
+
 namespace Assignement;
 
 public class HeartbeatProcessor(IMachineRepository repository, IMachineEventPublisher eventPublisher) : IHeartbeatProcessor
@@ -23,13 +25,13 @@ public class HeartbeatProcessor(IMachineRepository repository, IMachineEventPubl
         }
 
         await eventPublisher.PublishHeartbeatProcessedAsync(
-            new MachineHeartbeatProcessedEvent(machine.Id, heartbeat.Timestamp, machine.CurrentJob, machine.Metrics),
+            new MachineHeartbeatProcessed(machine.Id, heartbeat.Timestamp, machine.CurrentJob, machine.Metrics),
             cancellationToken);
 
         if (previousStatus != machine.Status)
         {
             await eventPublisher.PublishMachineStatusChangedAsync(
-                new MachineStatusChangedEvent(machine.Id, previousStatus, machine.Status, DateTimeOffset.UtcNow),
+                new MachineStatusChanged(machine.Id, previousStatus, machine.Status, DateTimeOffset.UtcNow),
                 cancellationToken);
         }
 

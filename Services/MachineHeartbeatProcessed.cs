@@ -1,6 +1,6 @@
-namespace Assignement;
+namespace Assignement.Events;
 
-public sealed record MachineHeartbeatProcessedEvent(
+public record MachineHeartbeatProcessed(
     Guid MachineId,
     DateTimeOffset Timestamp,
     string CurrentJob,

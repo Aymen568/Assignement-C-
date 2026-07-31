@@ -1,12 +1,14 @@
+using Assignement.Events;
+
 namespace Assignement;
 
 public interface IDashboardClient
 {
-    Task MachineCreated(MachineCreatedEvent notification);
+    Task MachineCreated(MachineCreated notification);
 
-    Task HeartbeatProcessed(MachineHeartbeatProcessedEvent notification);
+    Task HeartbeatProcessed(MachineHeartbeatProcessed notification);
 
-    Task MachineStatusChanged(MachineStatusChangedEvent notification);
+    Task MachineStatusChanged(MachineStatusChanged notification);
 
-    Task MachineDeleted(MachineDeletedEvent notification);
+    Task MachineDeleted(MachineDeleted notification);
 }

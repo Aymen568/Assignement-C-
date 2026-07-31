@@ -1,3 +1,5 @@
+using Assignement.Events;
+
 namespace Assignement;
 
 public class MachineService(IMachineRepository repository, IMachineEventPublisher eventPublisher) : IMachineService
@@ -6,7 +8,7 @@ public class MachineService(IMachineRepository repository, IMachineEventPublishe
     {
         var created = await repository.CreateAsync(machine, cancellationToken);
         await eventPublisher.PublishMachineCreatedAsync(
-            new MachineCreatedEvent(created.Id, created.Name, created.Status, DateTimeOffset.UtcNow),
+            new MachineCreated(created.Id, created.Name, created.Status, DateTimeOffset.UtcNow),
             cancellationToken);
         return created;
     }
@@ -23,7 +25,7 @@ public class MachineService(IMachineRepository repository, IMachineEventPublishe
         if (deleted)
         {
             await eventPublisher.PublishMachineDeletedAsync(
-                new MachineDeletedEvent(id, DateTimeOffset.UtcNow),
+                new MachineDeleted(id, DateTimeOffset.UtcNow),
                 cancellationToken);
         }
 
