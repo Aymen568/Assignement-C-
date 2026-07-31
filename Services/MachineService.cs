@@ -1,6 +1,6 @@
 namespace Assignement;
 
-public sealed class MachineService(IMachineRepository repository, IMachineEventPublisher eventPublisher) : IMachineService
+public class MachineService(IMachineRepository repository, IMachineEventPublisher eventPublisher) : IMachineService
 {
     public async Task<Machine> CreateAsync(Machine machine, CancellationToken cancellationToken)
     {

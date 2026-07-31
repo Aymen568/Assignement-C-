@@ -1,6 +1,6 @@
 namespace Assignement;
 
-public sealed class HeartbeatProcessor(IMachineRepository repository, IMachineEventPublisher eventPublisher) : IHeartbeatProcessor
+public class HeartbeatProcessor(IMachineRepository repository, IMachineEventPublisher eventPublisher) : IHeartbeatProcessor
 {
     public async Task<Machine> ProcessAsync(HeartbeatUpdate heartbeat, CancellationToken cancellationToken)
     {

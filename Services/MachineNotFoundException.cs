@@ -1,6 +1,6 @@
 namespace Assignement;
 
-public sealed class MachineNotFoundException : Exception
+public class MachineNotFoundException : Exception
 {
     public MachineNotFoundException(Guid machineId)
         : base($"Machine '{machineId}' was not found.")

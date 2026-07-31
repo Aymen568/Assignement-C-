@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 
 namespace Assignement;
 
-public sealed class InMemoryMachineRepository : IMachineRepository
+public class InMemoryMachineRepository : IMachineRepository
 {
     private readonly ConcurrentDictionary<Guid, Machine> machines = new();
 

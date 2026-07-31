@@ -3,7 +3,7 @@ using Assignement.Grpc;
 
 namespace Assignement;
 
-public sealed class HeartbeatGrpcService(IHeartbeatProcessor processor) : HeartbeatService.HeartbeatServiceBase
+public class HeartbeatGrpcService(IHeartbeatProcessor processor) : HeartbeatService.HeartbeatServiceBase
 {
     public override async Task<HeartbeatReply> SendHeartbeat(HeartbeatRequest request, ServerCallContext context)
     {

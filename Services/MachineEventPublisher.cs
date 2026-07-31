@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Assignement;
 
-public sealed class MachineEventPublisher(IHubContext<DashboardHub, IDashboardClient> hubContext) : IMachineEventPublisher
+public class MachineEventPublisher(IHubContext<DashboardHub, IDashboardClient> hubContext) : IMachineEventPublisher
 {
     public Task PublishMachineCreatedAsync(MachineCreatedEvent notification, CancellationToken cancellationToken)
     {
