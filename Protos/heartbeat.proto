@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "Assignement.Grpc";
+
+package assignement;
+
+import "google/protobuf/timestamp.proto";
+
+service HeartbeatService {
+  rpc SendHeartbeat (HeartbeatRequest) returns (HeartbeatReply);
+}
+
+message HeartbeatRequest {
+  string machine_id = 1;
+  google.protobuf.Timestamp timestamp = 2;
+  double cpu_usage = 3;
+  double memory_usage = 4;
+  double temperature = 5;
+  string current_job = 6;
+}
+
+message HeartbeatReply {
+  bool accepted = 1;
+  string message = 2;
+}
