@@ -5,7 +5,9 @@ public sealed class MachineService(IMachineRepository repository, IMachineEventP
     public async Task<Machine> CreateAsync(Machine machine, CancellationToken cancellationToken)
     {
         var created = await repository.CreateAsync(machine, cancellationToken);
-        await eventPublisher.PublishMachineCreatedAsync(new MachineCreatedEvent(created.Id, created.Name, created.Status), cancellationToken);
+        await eventPublisher.PublishMachineCreatedAsync(
+            new MachineCreatedEvent(created.Id, created.Name, created.Status, DateTimeOffset.UtcNow),
+            cancellationToken);
         return created;
     }
 
@@ -20,7 +22,9 @@ public sealed class MachineService(IMachineRepository repository, IMachineEventP
         var deleted = await repository.DeleteAsync(id, cancellationToken);
         if (deleted)
         {
-            await eventPublisher.PublishMachineDeletedAsync(new MachineDeletedEvent(id), cancellationToken);
+            await eventPublisher.PublishMachineDeletedAsync(
+                new MachineDeletedEvent(id, DateTimeOffset.UtcNow),
+                cancellationToken);
         }
 
         return deleted;

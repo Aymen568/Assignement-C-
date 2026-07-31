@@ -29,7 +29,7 @@ public sealed class HeartbeatProcessor(IMachineRepository repository, IMachineEv
         if (previousStatus != machine.Status)
         {
             await eventPublisher.PublishMachineStatusChangedAsync(
-                new MachineStatusChangedEvent(machine.Id, previousStatus, machine.Status),
+                new MachineStatusChangedEvent(machine.Id, previousStatus, machine.Status, DateTimeOffset.UtcNow),
                 cancellationToken);
         }
 
