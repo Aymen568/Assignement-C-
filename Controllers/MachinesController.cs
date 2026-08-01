@@ -7,7 +7,6 @@ namespace Assignement.Controllers;
 [Route("api/machines")]
 public class MachinesController(IMachineService machineService) : ControllerBase
 {
-    // Changed the Create endpoint to accept CreateMachineRequest
     [HttpPost]
     public async Task<ActionResult<Machine>> Create([FromBody] CreateMachineRequest request, CancellationToken cancellationToken)
     {
