@@ -42,7 +42,6 @@ curl -X POST https://localhost:7250/api/machines \
   "status": "Offline",
   "lastHeartbeat": "0001-01-01T00:00:00+00:00",
   "currentJob": "",
-  "metrics": {"cpuUsage": 0, "memoryUsage": 0, "temperature": 0},
   "metadata": {"location": "warehouse-a", "owner": "team-ops"}
 }
 ```
