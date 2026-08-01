@@ -157,7 +157,3 @@ connection.start();
 - **Event Publishing**: Machine creation, deletion, heartbeat processing, and status changes all publish events to subscribed SignalR clients.
 - **Health Metrics**: The `/api/metrics` endpoint provides a quick health check with machine counts.
 - **API Documentation**: Swagger/OpenAPI is enabled in Development mode at `/swagger` for easy endpoint exploration.
-
----
-
-*This assessment was completed with assistance from AI tooling (GitHub Copilot) as invited by the brief.*
