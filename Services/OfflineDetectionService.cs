@@ -18,13 +18,13 @@ public class OfflineDetectionService(IMachineRepository repository, IMachineEven
 
             foreach (var machine in machines)
             {
-                if (!machine.Status || now - machine.LastHeartbeat <= OfflineTimeout)
+                if (machine.Status == MachineStatus.Offline || now - machine.LastHeartbeat <= OfflineTimeout)
                 {
                     continue;
                 }
 
                 var previousStatus = machine.Status;
-                machine.Status = false;
+                machine.Status = MachineStatus.Offline;
 
                 if (await repository.UpdateAsync(machine, stoppingToken))
                 {

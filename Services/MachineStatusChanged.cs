@@ -1,3 +1,3 @@
 namespace Assignement.Events;
 
-public record MachineStatusChanged(Guid MachineId, bool OldStatus, bool NewStatus, DateTimeOffset OccurredAtUtc);
+public record MachineStatusChanged(Guid MachineId, MachineStatus OldStatus, MachineStatus NewStatus, DateTimeOffset OccurredAtUtc);

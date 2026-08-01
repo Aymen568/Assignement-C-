@@ -18,6 +18,9 @@ The application listens on:
 
 (Configured in `Properties/launchSettings.json`)
 
+**Swagger API Documentation** is available at:
+- `https://localhost:7250/swagger` (in Development mode)
+
 ## REST Endpoints
 
 ### Create a Machine
@@ -29,6 +32,19 @@ curl -X POST https://localhost:7250/api/machines \
     "name": "Machine-001",
     "metadata": {"location": "warehouse-a", "owner": "team-ops"}
   }'
+```
+
+**Response (201 Created):**
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Machine-001",
+  "status": "Offline",
+  "lastHeartbeat": "0001-01-01T00:00:00+00:00",
+  "currentJob": "",
+  "metrics": {"cpuUsage": 0, "memoryUsage": 0, "temperature": 0},
+  "metadata": {"location": "warehouse-a", "owner": "team-ops"}
+}
 ```
 
 ### Get All Machines
@@ -48,6 +64,21 @@ Replace `{id}` with a valid machine GUID.
 
 ```bash
 curl -X DELETE https://localhost:7250/api/machines/{id}
+```
+
+### Get Metrics/Health
+
+```bash
+curl https://localhost:7250/api/metrics
+```
+
+**Response:**
+```json
+{
+  "totalMachines": 5,
+  "onlineMachines": 3,
+  "offlineMachines": 2
+}
 ```
 
 ## gRPC Heartbeat Endpoint
@@ -75,7 +106,7 @@ grpcurl -plaintext \
 **Note**: 
 - `machine_id` must be a valid GUID and must correspond to an existing machine.
 - `timestamp` is in RFC 3339 format (ISO 8601).
-- Heartbeats are idempotent: duplicate timestamps are suppressed and generate no events.
+- Heartbeats are idempotent: duplicate or stale timestamps are suppressed and generate no events.
 
 ## SignalR Dashboard Hub
 
@@ -105,7 +136,7 @@ connection.start();
 
 ## Assumptions
 
-- **Status is modeled as a boolean**: `true` = online, `false` = offline.
+- **Status is modeled as an enum**: `Online` or `Offline` (not a boolean).
 - **Machine creation does not require unique ID generation by the client**: the service auto-generates a GUID.
 - **Machine creation validates name uniqueness** (case-insensitive) to prevent duplicates.
 - **Offline detection runs every ~5 seconds** against a **30-second heartbeat timeout** (configurable via `OfflineDetectionService`).
@@ -116,7 +147,17 @@ connection.start();
 
 ## Implementation Notes
 
-- **Concurrency**: The heartbeat processor uses Compare-And-Swap (CAS) with retry logic to safely handle concurrent updates.
+- **Concurrency**: The heartbeat processor uses Compare-And-Swap (CAS) with retry logic (max 3 retries) to safely handle concurrent updates. Retries are bounded to prevent resource exhaustion.
 - **Idempotency**: Duplicate heartbeat events are suppressed by comparing incoming timestamps with the machine's `LastHeartbeat` field.
-- **Data Validation**: The gRPC service validates `machine_id` as a GUID before processing; the REST API validates `CreateMachineRequest.Name` with `[Required]` and `[MinLength(1)]` attributes (auto-enforced by `[ApiController]`).
+- **Data Validation**: 
+  - The gRPC service validates `machine_id` as a valid, non-empty GUID before processing.
+  - The REST API validates `CreateMachineRequest.Name` with `[Required]` and `[MinLength(1)]` attributes (auto-enforced by `[ApiController]`).
+  - The service checks for duplicate machine names (case-insensitive) on creation.
+- **Status Enum**: Machine status is now strongly-typed as `MachineStatus` (Offline/Online) instead of bool for clarity and type safety.
 - **Event Publishing**: Machine creation, deletion, heartbeat processing, and status changes all publish events to subscribed SignalR clients.
+- **Health Metrics**: The `/api/metrics` endpoint provides a quick health check with machine counts.
+- **API Documentation**: Swagger/OpenAPI is enabled in Development mode at `/swagger` for easy endpoint exploration.
+
+---
+
+*This assessment was completed with assistance from AI tooling (GitHub Copilot) as invited by the brief.*

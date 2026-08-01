@@ -18,8 +18,8 @@ public class MachineService(IMachineRepository repository, IMachineEventPublishe
             Id = Guid.NewGuid(),
             Name = request.Name,
             Metadata = request.Metadata ?? new(),
-            Status = false,          // always starts offline
-            LastHeartbeat = default  // never received a heartbeat
+            Status = MachineStatus.Offline,  // always starts offline
+            LastHeartbeat = default          // never received a heartbeat
         };
 
         var created = await repository.CreateAsync(machine, cancellationToken);

@@ -35,4 +35,16 @@ public class MachinesController(IMachineService machineService) : ControllerBase
         var deleted = await machineService.DeleteAsync(id, cancellationToken);
         return deleted ? NoContent() : NotFound();
     }
+
+    [HttpGet("~/api/metrics")]
+    public async Task<ActionResult> GetMetrics(CancellationToken cancellationToken)
+    {
+        var machines = await machineService.GetAllAsync(cancellationToken);
+        return Ok(new
+        {
+            TotalMachines = machines.Count,
+            OnlineMachines = machines.Count(m => m.Status == MachineStatus.Online),
+            OfflineMachines = machines.Count(m => m.Status == MachineStatus.Offline)
+        });
+    }
 }

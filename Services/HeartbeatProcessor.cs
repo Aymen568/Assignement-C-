@@ -28,7 +28,7 @@ public class HeartbeatProcessor(IMachineRepository repository, IMachineEventPubl
             machine.LastHeartbeat = heartbeat.Timestamp;
             machine.CurrentJob = heartbeat.CurrentJob;
             machine.Metrics = heartbeat.Metrics;
-            machine.Status = true;
+            machine.Status = MachineStatus.Online;
 
             if (await repository.UpdateAsync(machine, cancellationToken))
             {

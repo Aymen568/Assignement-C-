@@ -1,6 +1,36 @@
-@Assignement_HostAddress = http://localhost:5156
+@Assignement_HostAddress = https://localhost:7250
 
-GET {{Assignement_HostAddress}}/weatherforecast/
+### Get all machines
+GET {{Assignement_HostAddress}}/api/machines
 Accept: application/json
 
 ###
+
+### Create a new machine
+POST {{Assignement_HostAddress}}/api/machines
+Content-Type: application/json
+
+{
+  "name": "Machine-001",
+  "metadata": {
+    "location": "warehouse-a",
+    "owner": "team-ops"
+  }
+}
+
+###
+
+### Get machine by ID (replace with actual GUID)
+GET {{Assignement_HostAddress}}/api/machines/550e8400-e29b-41d4-a716-446655440000
+Accept: application/json
+
+###
+
+### Delete a machine (replace with actual GUID)
+DELETE {{Assignement_HostAddress}}/api/machines/550e8400-e29b-41d4-a716-446655440000
+
+###
+
+### Get metrics/health
+GET {{Assignement_HostAddress}}/api/metrics
+Accept: application/json
