@@ -9,6 +9,7 @@ builder.Services.AddSingleton<IMachineRepository, InMemoryMachineRepository>();
 builder.Services.AddSingleton<IMachineEventPublisher, MachineEventPublisher>();
 builder.Services.AddScoped<IMachineService, MachineService>();
 builder.Services.AddScoped<IHeartbeatProcessor, HeartbeatProcessor>();
+builder.Services.AddHostedService<OfflineDetectionService>();
 
 var app = builder.Build();
 

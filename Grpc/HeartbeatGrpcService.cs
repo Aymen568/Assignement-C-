@@ -16,25 +16,17 @@ public class HeartbeatGrpcService(IHeartbeatProcessor processor) : HeartbeatServ
                 Message = $"Heartbeat accepted for machine '{machine.Id}'."
             };
         }
-        catch (MachineNotFoundException ex)
+        catch (Exception ex)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, ex.Message));
-        }
-        catch (FormatException ex)
-        {
-            throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
-        }
-        catch (InvalidOperationException ex)
-        {
-            throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
-        }
-        catch (OperationCanceledException)
-        {
-            throw new RpcException(new Status(StatusCode.Cancelled, "The request was cancelled."));
-        }
-        catch (Exception)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred."));
+            throw ToRpcException(ex);
         }
     }
+
+    private static RpcException ToRpcException(Exception exception) => exception switch
+    {
+        MachineNotFoundException ex => new RpcException(new Status(StatusCode.NotFound, ex.Message)),
+        FormatException or InvalidOperationException => new RpcException(new Status(StatusCode.InvalidArgument, exception.Message)),
+        OperationCanceledException => new RpcException(new Status(StatusCode.Cancelled, "The request was cancelled.")),
+        _ => new RpcException(new Status(StatusCode.Internal, "An unexpected error occurred."))
+    };
 }
