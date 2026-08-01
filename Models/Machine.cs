@@ -14,7 +14,5 @@ public class Machine
 
     public string CurrentJob { get; set; } = string.Empty;
 
-    public Metrics Metrics { get; set; } = new();
-
     public Dictionary<string, string> Metadata { get; set; } = new();
 }

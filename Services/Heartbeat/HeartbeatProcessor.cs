@@ -29,13 +29,12 @@ public class HeartbeatProcessor(IMachineRepository repository, IMachineEventPubl
             var previousStatus = machine.Status;
             machine.LastHeartbeat = heartbeat.Timestamp;
             machine.CurrentJob = heartbeat.CurrentJob;
-            machine.Metrics = heartbeat.Metrics;
             machine.Status = MachineStatus.Online;
 
             if (await repository.UpdateAsync(machine, cancellationToken))
             {
                 await eventPublisher.PublishHeartbeatProcessedAsync(
-                    new MachineHeartbeatProcessed(machine.Id, heartbeat.Timestamp, machine.CurrentJob, machine.Metrics),
+                    new MachineHeartbeatProcessed(machine.Id, heartbeat.Timestamp, machine.CurrentJob, heartbeat.Metrics),
                     cancellationToken);
 
                 if (previousStatus != machine.Status)

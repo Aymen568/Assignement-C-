@@ -63,14 +63,6 @@ public class InMemoryMachineRepository : IMachineRepository
         Status = machine.Status,
         LastHeartbeat = machine.LastHeartbeat,
         CurrentJob = machine.CurrentJob,
-        Metrics = Clone(machine.Metrics),
         Metadata = machine.Metadata is null ? new Dictionary<string, string>() : new Dictionary<string, string>(machine.Metadata)
-    };
-
-    private static Metrics Clone(Metrics metrics) => new()
-    {
-        CpuUsage = metrics.CpuUsage,
-        MemoryUsage = metrics.MemoryUsage,
-        Temperature = metrics.Temperature
     };
 }
