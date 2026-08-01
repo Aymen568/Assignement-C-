@@ -11,7 +11,6 @@ public class HeartbeatGrpcService(IHeartbeatProcessor processor) : HeartbeatServ
     {
         try
         {
-            // Validate machine_id parses as a Guid and is non-empty
             if (string.IsNullOrWhiteSpace(request.MachineId) || !Guid.TryParse(request.MachineId, out _))
             {
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "machine_id must be a valid, non-empty GUID."));
