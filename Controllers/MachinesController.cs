@@ -7,11 +7,11 @@ namespace Assignement.Controllers;
 [Route("api/machines")]
 public class MachinesController(IMachineService machineService) : ControllerBase
 {
-    // Added this endpoint to handle the creation of a new machine
+    // Changed the Create endpoint to accept CreateMachineRequest
     [HttpPost]
-    public async Task<ActionResult<Machine>> Create([FromBody] Machine machine, CancellationToken cancellationToken)
+    public async Task<ActionResult<Machine>> Create([FromBody] CreateMachineRequest request, CancellationToken cancellationToken)
     {
-        var created = await machineService.CreateAsync(machine, cancellationToken);
+        var created = await machineService.CreateAsync(request, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 

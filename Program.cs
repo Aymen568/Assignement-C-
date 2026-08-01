@@ -20,3 +20,4 @@ app.MapGrpcService<HeartbeatGrpcService>();
 app.MapHub<DashboardHub>("/hubs/dashboard");
 
 app.Run();
+    

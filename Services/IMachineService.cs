@@ -2,7 +2,7 @@ namespace Assignement;
 
 public interface IMachineService
 {
-    Task<Machine> CreateAsync(Machine machine, CancellationToken cancellationToken);
+    Task<Machine> CreateAsync(CreateMachineRequest request, CancellationToken cancellationToken);
 
     Task<IReadOnlyCollection<Machine>> GetAllAsync(CancellationToken cancellationToken);
 
