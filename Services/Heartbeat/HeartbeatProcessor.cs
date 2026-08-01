@@ -20,10 +20,9 @@ public class HeartbeatProcessor(IMachineRepository repository, IMachineEventPubl
                 throw new MachineNotFoundException(heartbeat.MachineId);
             }
 
-            // Idempotency check: suppress duplicate or stale heartbeats
             if (heartbeat.Timestamp <= machine.LastHeartbeat)
             {
-                return machine; // stale or duplicate heartbeat, no-op, no event
+                return machine; 
             }
 
             var previousStatus = machine.Status;
