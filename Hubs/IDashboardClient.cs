@@ -1,4 +1,4 @@
-using Assignement.Events;
+using Assignement.Services.Events;
 
 namespace Assignement;
 

@@ -1,6 +1,7 @@
-using Assignement.Events;
+using Assignement.Services.Events;
+using Assignement.Services.Machines;
 
-namespace Assignement;
+namespace Assignement.Services.Heartbeat;
 
 public class OfflineDetectionService(IMachineRepository repository, IMachineEventPublisher eventPublisher) : BackgroundService
 {

@@ -1,4 +1,5 @@
 using Google.Protobuf.WellKnownTypes;
+using Assignement.Services.Heartbeat;
 
 namespace Assignement;
 

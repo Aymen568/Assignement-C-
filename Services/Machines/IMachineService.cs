@@ -1,4 +1,6 @@
-namespace Assignement;
+using Assignement;
+
+namespace Assignement.Services.Machines;
 
 public interface IMachineService
 {

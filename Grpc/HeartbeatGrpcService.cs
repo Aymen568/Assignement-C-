@@ -1,5 +1,7 @@
 using Grpc.Core;
 using Assignement.Grpc;
+using Assignement.Services.Heartbeat;
+using Assignement.Services.Machines;
 
 namespace Assignement;
 

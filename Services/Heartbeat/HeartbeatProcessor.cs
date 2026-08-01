@@ -1,6 +1,8 @@
-using Assignement.Events;
+using Assignement;
+using Assignement.Services.Events;
+using Assignement.Services.Machines;
 
-namespace Assignement;
+namespace Assignement.Services.Heartbeat;
 
 public class HeartbeatProcessor(IMachineRepository repository, IMachineEventPublisher eventPublisher) : IHeartbeatProcessor
 {
@@ -45,7 +47,7 @@ public class HeartbeatProcessor(IMachineRepository repository, IMachineEventPubl
                 return machine;
             }
 
-            // CAS failed because of a concurrent write — retry
+            // CAS failed because of a concurrent write ï¿½ retry
             retryCount++;
         }
 

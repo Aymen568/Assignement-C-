@@ -1,4 +1,4 @@
-namespace Assignement;
+namespace Assignement.Services.Machines;
 
 public class MachineNotFoundException : Exception
 {

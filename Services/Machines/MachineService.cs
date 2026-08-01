@@ -1,6 +1,7 @@
-using Assignement.Events;
+using Assignement;
+using Assignement.Services.Events;
 
-namespace Assignement;
+namespace Assignement.Services.Machines;
 
 public class MachineService(IMachineRepository repository, IMachineEventPublisher eventPublisher) : IMachineService
 {

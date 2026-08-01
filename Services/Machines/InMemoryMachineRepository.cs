@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
+using Assignement;
 
-namespace Assignement;
+namespace Assignement.Services.Machines;
 
 public class InMemoryMachineRepository : IMachineRepository
 {

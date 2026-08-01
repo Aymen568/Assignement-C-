@@ -1,5 +1,7 @@
 using Assignement;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using Assignement.Services.Events;
+using Assignement.Services.Heartbeat;
+using Assignement.Services.Machines;
 
 var builder = WebApplication.CreateBuilder(args);
 

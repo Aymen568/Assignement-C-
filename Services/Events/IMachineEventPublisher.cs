@@ -1,6 +1,4 @@
-using Assignement.Events;
-
-namespace Assignement;
+namespace Assignement.Services.Events;
 
 public interface IMachineEventPublisher
 {

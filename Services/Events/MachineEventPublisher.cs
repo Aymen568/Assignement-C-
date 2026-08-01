@@ -1,7 +1,7 @@
-using Assignement.Events;
+using Assignement;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Assignement;
+namespace Assignement.Services.Events;
 
 public class MachineEventPublisher(IHubContext<DashboardHub, IDashboardClient> hubContext) : IMachineEventPublisher
 {
